@@ -7,16 +7,34 @@ public class Handler {
 
     public void tick() {
         int i = 0;
+        boolean error = false;
+        GameObject tempObject = null;
         while (i < object.size()) {
-                    GameObject tempObject = object.get(i);
+            do{
+                try{
+                    tempObject = object.get(i);
+                    error = false;
+                }catch(NullPointerException e){
+                    error = true;
+                }
+            }while(error);
                     tempObject.tick();
             i++;
         }
     }
     public void render(Graphics g) {
         int i = 0;
+        GameObject tempObject = null;
+        boolean error = false;
         while (i < object.size()) {
-                    GameObject tempObject = object.get(i);
+                do{
+                    try{
+                        tempObject = object.get(i);
+                        error = false;
+                    }catch(NullPointerException e){
+                        error = true;
+                    }
+                }while(error);
                     tempObject.render(g);
             i++;
         }

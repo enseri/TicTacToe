@@ -2,22 +2,17 @@ import java.awt.event.*;
 import javax.swing.event.MouseInputListener;
 
 public class Mouse implements MouseInputListener {
-    private Handler handler;
     private int clicks;
-    private int player;
+    private int x = 0;
+    private int y = 0;
     private int objectLocation;
-    private int[] placements;
 
-    public void setHandler(Handler handler) {
-        this.handler = handler;
+    public int getX(){
+        return x;
     }
-    public void setPlacements(int[] placements){
-        this.placements = placements;
+    public int getY(){
+        return y;
     }
-    public void setStatus(int x) {
-        player = x;
-    }
-
     public int getClicks() {
         return clicks;
     }
@@ -29,19 +24,11 @@ public class Mouse implements MouseInputListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        System.out.println("clicked: (" + x + " , " + y + ")");
-        x /= 100;
-        y /= 100;
-        objectLocation = (((((y * 3) + x) + 1) * 3) - 3);
+        x = e.getX();
+        y = e.getY();
         clicks++;
-        if (player == 1 && placements[((objectLocation/ 3) + 3)] == 0)
-            handler.replaceObject(objectLocation, new OMARK(x * 100, y * 100, ID.OMARK));
-        if (player == 2 && placements[((objectLocation/ 3) + 3)] == 0)
-            handler.replaceObject(objectLocation, new XMARK(x * 100, y * 100, ID.XMARK));
-        if(placements[((objectLocation/ 3) + 3)] != 0)
-            clicks--;
+        objectLocation = ((((((y / 100) * 3) + (x / 100)) + 1) * 3) - 3);
+        
     }
 
     public void mouseEntered(MouseEvent e) {
