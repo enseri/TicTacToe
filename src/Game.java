@@ -21,8 +21,8 @@ public class Game extends Canvas implements Runnable {
         while (line != Math.sqrt(size)) {
             line++;
         }
-        WIDTH = 100 * line;
-        HEIGHT = 100 * line;
+        WIDTH = 104 * line;
+        HEIGHT = 108 * line;
         new Window(WIDTH, HEIGHT, "TICTACTOE", this);
 
         handler = new Handler();
@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable {
         int d = 0;
         int g = 1;
         int h = 0;
-        while (d != (size + 1)) {
+        while (d != size) {
             handler.addObject(new TILE(0 + (f * 100), 0 + (h * 100), ID.TILE));
             handler.addObject(new COLUMN(0 + (f * 100), 0 + (h * 100), ID.COLUMN));
             handler.addObject(new ROW(0 + (f * 100), 0 + (h * 100), ID.ROW));
