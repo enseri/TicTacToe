@@ -8,10 +8,10 @@ public class Mouse implements MouseInputListener {
     private int objectLocation;
 
     public int getX(){
-        return x;
+        return (x / 100) * 100;
     }
     public int getY(){
-        return y;
+        return (y / 100) * 100;
     }
     public int getClicks() {
         return clicks;
@@ -26,7 +26,7 @@ public class Mouse implements MouseInputListener {
     public void mouseClicked(MouseEvent e) {
         x = e.getX();
         y = e.getY();
-        objectLocation = ((((((y / 100) * 3) + (x / 100)) + 1) * 3) - 3);
+        objectLocation = ((y / 100) * 3) + (x / 100);
         clicks++;
         
     }

@@ -21,8 +21,8 @@ public class Game extends Canvas implements Runnable {
         while (line != Math.sqrt(size)) {
             line++;
         }
-        WIDTH = 104 * line;
-        HEIGHT = 108 * line;
+        WIDTH = 100 * line;
+        HEIGHT = 100 * line;
         new Window(WIDTH, HEIGHT, "TICTACTOE", this);
 
         handler = new Handler();
@@ -114,117 +114,86 @@ public class Game extends Canvas implements Runnable {
 
     public void begin() {
         int clicks = 0;
-        int[] placements = new int[14];
-        int currentClicks = 0;
         int player = 1;
-        int x = 0, y = 0;
-        int objectLocation;
-        boolean victory = false;
-        while (clicks != 9) {
-            currentClicks = mouse.getClicks();
-            out.print("");
-            if (clicks < currentClicks) {
-                if (player == 1 && clicks < currentClicks) {
-                    out.println("player 1 turn complete");
-                    player = 2;
-                    clicks = currentClicks;
-                    objectLocation = ((mouse.getObjectLoc() / 3) + 3);
-                    x = mouse.getX() / 100;
-                    y = mouse.getY() / 100;
-                    if (player == 1 && placements[((mouse.getObjectLoc() / 3) + 3)] == 0)
-                        handler.replaceObject(mouse.getObjectLoc(), new OMARK(x * 100, y * 100, ID.OMARK));
-                    if (player == 2 && placements[((objectLocation / 3) + 3)] == 0)
-                        handler.replaceObject(mouse.getObjectLoc(), new XMARK(x * 100, y * 100, ID.XMARK));
-                    if (placements[objectLocation] == 0) {
-                        placements[objectLocation] = 1;
-                    } else {
-                        clicks--;
-                        mouse.setClicks(clicks);
-                    }
-                    if (placements[3] == 1 && placements[6] == 1 && placements[9] == 1)
-                        victory = true;
-                    if (placements[4] == 1 && placements[7] == 1 && placements[10] == 1)
-                        victory = true;
-                    if (placements[5] == 1 && placements[8] == 1 && placements[11] == 1)
-                        victory = true;
+        boolean GameOver = false;
+        int[] placements = new int[100];
+        int objectLocation = 0;
+        while (!GameOver) {
+            while (clicks == mouse.getClicks()) {
+                out.print("");
+            }
+            clicks = mouse.getClicks();
+            objectLocation = mouse.getObjectLoc();
+            if (player == 1 && placements[objectLocation] == 0) {
+                placements[objectLocation] = 1;
+                handler.replaceObject(objectLocation * 3, new XMARK(mouse.getX(), mouse.getY(), ID.XMARK));
+            } else if (player == 2 && placements[objectLocation] == 0) {
+                placements[objectLocation] = 2;
+                handler.replaceObject(objectLocation * 3, new OMARK(mouse.getX(), mouse.getY(), ID.OMARK));
+            } else {
+                clicks--;
+                mouse.setClicks(clicks);
+            }
+            if (player == 1)
+                player = 2;
+            else
+                player = 1;
+            if (placements[0] == 1 && placements[1] == 1 && placements[2] == 1)
+                GameOver = true;
+            if (placements[3] == 1 && placements[4] == 1 && placements[5] == 1)
+                GameOver = true;
+            if (placements[6] == 1 && placements[7] == 1 && placements[8] == 1)
+                GameOver = true;
+            if (placements[0] == 1 && placements[3] == 1 && placements[6] == 1)
+                GameOver = true;
+            if (placements[1] == 1 && placements[4] == 1 && placements[7] == 1)
+                GameOver = true;
+            if (placements[2] == 1 && placements[5] == 1 && placements[8] == 1)
+                GameOver = true;
+            if (placements[0] == 1 && placements[4] == 1 && placements[8] == 1)
+                GameOver = true;
+            if (placements[2] == 1 && placements[4] == 1 && placements[6] == 1)
+                GameOver = true;
 
-                    if (placements[3] == 1 && placements[4] == 1 && placements[5] == 1)
-                        victory = true;
-                    if (placements[6] == 1 && placements[7] == 1 && placements[8] == 1)
-                        victory = true;
-                    if (placements[9] == 1 && placements[10] == 1 && placements[11] == 1)
-                        victory = true;
-
-                    if (placements[3] == 1 && placements[7] == 1 && placements[11] == 1)
-                        victory = true;
-                    if (placements[5] == 1 && placements[7] == 1 && placements[9] == 1)
-                        victory = true;
-                }
-                if (player == 2 && clicks < currentClicks) {
-                    out.println("player 2 turn complete");
-                    player = 1;
-                    clicks = currentClicks;
-                    objectLocation = ((mouse.getObjectLoc() / 3) + 3);
-                    x = mouse.getX() / 100;
-                    y = mouse.getY() / 100;
-                    if (player == 1 && placements[((mouse.getObjectLoc() / 3) + 3)] == 0)
-                        handler.replaceObject(mouse.getObjectLoc(), new OMARK(x * 100, y * 100, ID.OMARK));
-                    if (player == 2 && placements[((mouse.getObjectLoc() / 3) + 3)] == 0)
-                        handler.replaceObject(mouse.getObjectLoc(), new XMARK(x * 100, y * 100, ID.XMARK));
-                    if (placements[objectLocation] == 0) {
-                        placements[objectLocation] = 2;
-                    } else {
-                        clicks--;
-                        mouse.setClicks(clicks);
-                    }
-                    if (placements[3] == 2 && placements[6] == 2 && placements[9] == 2)
-                        victory = true;
-                    if (placements[4] == 2 && placements[7] == 2 && placements[10] == 2)
-                        victory = true;
-                    if (placements[5] == 2 && placements[8] == 2 && placements[11] == 2)
-                        victory = true;
-
-                    if (placements[3] == 2 && placements[4] == 2 && placements[5] == 2)
-                        victory = true;
-                    if (placements[6] == 2 && placements[7] == 2 && placements[8] == 2)
-                        victory = true;
-                    if (placements[9] == 2 && placements[10] == 2 && placements[11] == 2)
-                        victory = true;
-
-                    if (placements[3] == 2 && placements[7] == 2 && placements[11] == 2)
-                        victory = true;
-                    if (placements[5] == 2 && placements[7] == 2 && placements[9] == 2)
-                        victory = true;
-                }
-                if (victory || (!victory && clicks == 9)) {
-                    out.println("Game Over");
-                    clicks = 0;
-                    mouse.setClicks(0);
-                    for (int i = 0; i != 14; i++) {
-                        placements[i] = 0;
-                    }
-                    handler.reset();
-                    player = 1;
-                    victory = false;
-                    int f = 0;
-                    int d = 0;
-                    int g = 1;
-                    int h = 0;
-                    while (d != (size + 1)) {
-                        handler.addObject(new TILE(0 + (f * 100), 0 + (h * 100), ID.TILE));
-                        handler.addObject(new COLUMN(0 + (f * 100), 0 + (h * 100), ID.COLUMN));
-                        handler.addObject(new ROW(0 + (f * 100), 0 + (h * 100), ID.ROW));
-                        f++;
-                        d++;
-                        g++;
-                        if (g == line + 1) {
-                            g = 1;
-                            f = 0;
-                            h++;
-                        }
-                    }
-                }
+            if (placements[0] == 2 && placements[1] == 2 && placements[2] == 2)
+                GameOver = true;
+            if (placements[3] == 2 && placements[4] == 2 && placements[5] == 2)
+                GameOver = true;
+            if (placements[6] == 2 && placements[7] == 2 && placements[8] == 2)
+                GameOver = true;
+            if (placements[0] == 2 && placements[3] == 2 && placements[6] == 2)
+                GameOver = true;
+            if (placements[1] == 2 && placements[4] == 2 && placements[7] == 2)
+                GameOver = true;
+            if (placements[2] == 2 && placements[5] == 2 && placements[8] == 2)
+                GameOver = true;
+            if (placements[0] == 2 && placements[4] == 2 && placements[8] == 2)
+                GameOver = true;
+            if (placements[2] == 2 && placements[4] == 2 && placements[6] == 2)
+                GameOver = true;
+            if(clicks == 9)
+                GameOver = true;
+        }
+        out.println("Game Over");
+        mouse.setClicks(0);
+        handler.reset();
+        int f = 0;
+        int d = 0;
+        int g = 1;
+        int h = 0;
+        while (d != size) {
+            handler.addObject(new TILE(0 + (f * 100), 0 + (h * 100), ID.TILE));
+            handler.addObject(new COLUMN(0 + (f * 100), 0 + (h * 100), ID.COLUMN));
+            handler.addObject(new ROW(0 + (f * 100), 0 + (h * 100), ID.ROW));
+            f++;
+            d++;
+            g++;
+            if (g == line + 1) {
+                g = 1;
+                f = 0;
+                h++;
             }
         }
+        begin();
     }
 }
