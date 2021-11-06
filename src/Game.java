@@ -1,4 +1,5 @@
 import static java.lang.System.out;
+import java.util.concurrent.TimeUnit;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -175,6 +176,11 @@ public class Game extends Canvas implements Runnable {
                 GameOver = true;
         }
         out.println("Game Over");
+        try{
+            TimeUnit.SECONDS.sleep(5);
+        }catch(InterruptedException E){
+
+        }
         mouse.setClicks(0);
         handler.reset();
         int f = 0;
