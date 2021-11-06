@@ -26,8 +26,8 @@ public class Mouse implements MouseInputListener {
     public void mouseClicked(MouseEvent e) {
         x = e.getX();
         y = e.getY();
-        clicks++;
         objectLocation = ((((((y / 100) * 3) + (x / 100)) + 1) * 3) - 3);
+        clicks++;
         
     }
 
