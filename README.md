@@ -16,8 +16,7 @@ How to play:
             Yours(potentially):
             WIDTH = 104 * line;
             HEIGHT = 108 * line;
-            simply go into the game files find these lines and adjust them to the proper size
-            this will allow you to see the entire board.
+            simply go into the game and drag the mouse o none of the corners or sides of the window to adjust it until you see an even grid of tiles.
 
 
             If you find any bugs feel free to contact me @ BioMetricMain@gmail.com 
