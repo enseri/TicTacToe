@@ -127,18 +127,16 @@ public class Game extends Canvas implements Runnable {
             objectLocation = mouse.getObjectLoc();
             if (player == 1 && placements[objectLocation] == 0) {
                 placements[objectLocation] = 1;
+                player = 2;
                 handler.replaceObject(objectLocation * 3, new XMARK(mouse.getX(), mouse.getY(), ID.XMARK));
             } else if (player == 2 && placements[objectLocation] == 0) {
                 placements[objectLocation] = 2;
+                player = 1;
                 handler.replaceObject(objectLocation * 3, new OMARK(mouse.getX(), mouse.getY(), ID.OMARK));
             } else {
                 clicks--;
                 mouse.setClicks(clicks);
             }
-            if (player == 1)
-                player = 2;
-            else
-                player = 1;
             if (placements[0] == 1 && placements[1] == 1 && placements[2] == 1)
                 GameOver = true;
             if (placements[3] == 1 && placements[4] == 1 && placements[5] == 1)
